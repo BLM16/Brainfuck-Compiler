@@ -1,8 +1,17 @@
 #include <iostream>
 #include <filesystem>
 
+#include "Lexer.h"
+#include "Parser.h"
+#include "Utils.h"
+
 // Simplify the namespace for std::filesystem
 namespace fs = std::filesystem;
+
+/// Lexer instance used for tokenization
+Lexer LEXER = Lexer();
+/// Parser instance used for converting the token vector into c code
+Parser PARSER = Parser();
 
 /// <summary>
 /// Entry point to the compiler

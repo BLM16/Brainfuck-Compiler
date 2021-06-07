@@ -12,7 +12,7 @@ class Parser
 {
 private:
 	/// The c representation of the parsed tokens
-	std::vector<std::string> c_code = { "#include<stdio.h>\nint main(){char array[30000] = {0}; char* ptr = &array[0];" };
+	std::vector<std::string> c_code = { "#include<stdio.h>\nint main(){char array[30000]={0};char*ptr=&array[0];" };
 	/// Previously parsed token
 	Token previous;
 	/// The number of the same token in a row

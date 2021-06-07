@@ -15,8 +15,8 @@ struct Parameters
 {
 	fs::path InFile;
 	fs::path OutFile;
-	bool c_only;
-	bool has_error;
+	bool c_only = false;
+	bool has_error = false;
 };
 
 /// <summary>
@@ -25,6 +25,12 @@ struct Parameters
 /// <param name="path">The path of the file to read</param>
 /// <returns>The file contents as a string</returns>
 std::string read_file(fs::path path);
+/// <summary>
+/// Write data to a file by path
+/// </summary>
+/// <param name="path">The path of the file to write</param>
+/// <param name="data">The data to write to the file</param>
+void write_file(fs::path path, std::string data);
 /// <summary>
 /// Parses parameters into an organized array
 /// </summary>

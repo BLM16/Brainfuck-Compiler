@@ -33,5 +33,28 @@ int main(int argc, char** argv)
 	/// C equivalent of the brainfuck code
 	auto C_Code = PARSER.parse(Tokens);
 
-	std::cout << C_Code << std::endl;
+	// If the -c option is specified, write the c code and don't compile
+	if (params.c_only)
+		write_file(params.OutFile, C_Code);
+	else
+	{
+		// Check if there is a terminal
+		if (!system(NULL))
+		{
+			std::cerr << "No terminal exists to execute commands" << std::endl;
+			return 1;
+		}
+		else
+		{
+			// Write a temp file with the c code
+			write_file(params.InFile.string() + ".c", C_Code);
+
+			// Compile the c code into an executable
+			std::string cmd = "g++ -o " + params.OutFile.string() + " " + params.InFile.string() + ".c";
+			system(cmd.c_str());
+
+			// Delete the temp file
+			remove((params.InFile.string() + ".c").c_str());
+		}
+	}
 }

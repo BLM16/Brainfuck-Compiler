@@ -20,6 +20,19 @@ std::string read_file(fs::path path)
 	return data;
 }
 
+void write_file(fs::path path, std::string data)
+{
+	std::ofstream file{ path };
+
+	// Make sure the file opened without error
+	if (file.is_open())
+	{
+		// Write the data to the file
+		file << data;
+		file.close();
+	}
+}
+
 Parameters parse_parameters(int argc, char** argv)
 {
 	/// Parameters to set
@@ -33,12 +46,18 @@ Parameters parse_parameters(int argc, char** argv)
 		if (!isOutFlagged)
 		{
 			// Outfile flag
-			if (argv[i] == "-o")
+			if (strcmp(argv[i], "-o") == 0)
+			{
 				isOutFlagged = true;
+				continue;
+			}
 
 			// C only flag
-			else if (argv[i] == "-c")
+			else if (strcmp(argv[i], "-c") == 0)
+			{
 				params.c_only = true;
+				continue;
+			}
 
 			// Brainfuck file to compile
 			else
@@ -83,7 +102,10 @@ Parameters parse_parameters(int argc, char** argv)
 			}
 
 			else
-				params.OutFile = argv[i];
+			{
+				params.OutFile = fs::path{ argv[i] };
+				isOutFlagged = false;
+			}
 		}
 	}
 
